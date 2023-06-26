@@ -1,0 +1,10 @@
+FROM node:16
+
+WORKDIR /mbti_server/
+COPY ./package.json /mbti_server/
+COPY ./yarn.lock /mbti_server/
+RUN yarn install
+
+COPY . /mbti_server/
+
+CMD yarn start
