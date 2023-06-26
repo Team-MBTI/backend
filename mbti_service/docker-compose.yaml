@@ -15,5 +15,3 @@ services:
       - --collation-server=utf8mb4_unicode_ci
     ports:
       - '3306:3306'
-
-
