@@ -45,7 +45,7 @@ jobs:
         with:
           host: ${{ secrets.DEV_HOST }}
           username: ${{ secrets.DEV_USER_ID }}
-          password: ${{ secrets.USER_PW }}
+          password: ${{ secrets.DEV_USER_PW }}
           port: ${{ secrets.DEV_PORT }}
           script: |
             docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/tag-name
