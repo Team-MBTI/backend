@@ -27,7 +27,7 @@ jobs:
       - name: build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ../../
           file: ./mbti_service/dockerfile
           push: true
           tags: ${{ secrets.NCLOUD_CONTAINER_URL }}/tag-name:latest
