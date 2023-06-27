@@ -28,7 +28,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ./mbti_service
-          file: ./ockerfile
+          file: ./dockerfile
           push: true
           tags: ${{ secrets.NCLOUD_CONTAINER_URL }}/tag-name:latest
           cache-to: type=inline
