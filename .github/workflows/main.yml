@@ -30,7 +30,7 @@ jobs:
           context: ./mbti_service
           file: ./mbti_service/dockerfile
           push: true
-          tags: ${{ secrets.NCLOUD_CONTAINER_URL }}/tag-name:latest
+          tags: ${{ secrets.NCLOUD_CONTAINER_URL }}/mbti:latest
           cache-to: type=inline
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.GIT_TOKEN }}
@@ -48,8 +48,8 @@ jobs:
           password: ${{ secrets.DEV_USER_PW }}
           port: ${{ secrets.DEV_PORT }}
           script: |
-            docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/tag-name
+            docker pull ${{ secrets.NCLOUD_CONTAINER_URL }}/mbti
             docker stop $(docker ps -a -q)
             docker rm $(docker ps -a -q)
-            docker run -d -p 80:80 ${{ secrets.NCP_CONTAINER_REGISTRY }}/tag-name
+            docker run -d -p 80:80 ${{ secrets.NCLOUD_CONTAINER_URL }}/mbti
             docker image prune -f
