@@ -27,10 +27,10 @@ jobs:
       - name: build and push
         uses: docker/build-push-action@v3
         with:
-          context: ../../
+          context: ./mbti_service
           file: ./mbti_service/dockerfile
           push: true
-          tags: ${{ secrets.NCLOUD_CONTAINER_URL }}/tag-name:latest
+          tags: ${{ secrets.NCLOUD_CONTAINER_URL }}/mbti:latest
           cache-to: type=inline
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.GIT_TOKEN }}
@@ -45,11 +45,12 @@ jobs:
         with:
           host: ${{ secrets.DEV_HOST }}
           username: ${{ secrets.DEV_USER_ID }}
-          password: ${{ secrets.USER_PW }}
+          password: ${{ secrets.DEV_USER_PW }}
           port: ${{ secrets.DEV_PORT }}
           script: |
-            docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/tag-name
+            docker pull ${{ secrets.NCLOUD_CONTAINER_URL }}/mbti:latest
             docker stop $(docker ps -a -q)
             docker rm $(docker ps -a -q)
-            docker run -d -p 80:80 ${{ secrets.NCP_CONTAINER_REGISTRY }}/tag-name
+            docker run -d -p 80:80 ${{ secrets.NCLOUD_CONTAINER_URL }}/mbti:latest
             docker image prune -f
+
