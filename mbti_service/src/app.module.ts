@@ -3,6 +3,7 @@ import { MysqlModule } from './provider/database.module';
 import { ConfigModule } from '@nestjs/config';
 import databaseConfig from './config/database.config';
 import { envPathGenerator } from './common/env.path.generator';
+import { healthCheckController } from './healthcheck.contorller';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { envPathGenerator } from './common/env.path.generator';
       isGlobal: true,
     }),
   ],
-  controllers: [],
+  controllers: [healthCheckController],
   providers: [],
 })
 export class AppModule {}
