@@ -51,6 +51,5 @@ jobs:
             docker pull ${{ secrets.NCLOUD_CONTAINER_URL }}/mbti:latest
             docker stop $(docker ps -a -q)
             docker rm $(docker ps -a -q)
-            docker run -d -p 80:80 ${{ secrets.NCLOUD_CONTAINER_URL }}/mbti:latest
+            docker run -d -p 80:3000 ${{ secrets.NCLOUD_CONTAINER_URL }}/mbti:latest
             docker image prune -f
-
