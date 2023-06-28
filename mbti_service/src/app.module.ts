@@ -2,16 +2,13 @@ import { Module } from '@nestjs/common';
 import { MysqlModule } from './provider/database.module';
 import { ConfigModule } from '@nestjs/config';
 import databaseConfig from './config/database.config';
+import { envPathGenerator } from './common/env.path.generator';
 
 @Module({
   imports: [
     MysqlModule,
     ConfigModule.forRoot({
-      envFilePath: [
-        process.env.NODE_ENV === 'main'
-          ? `${__dirname}/config/.main.env`
-          : `${__dirname}/config/.dev.env`,
-      ],
+      envFilePath: [envPathGenerator()],
       load: [databaseConfig],
       isGlobal: true,
     }),
