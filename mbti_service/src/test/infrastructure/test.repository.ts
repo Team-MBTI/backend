@@ -3,7 +3,7 @@ import {
   TestConstructorInput,
   TestDomainEntity,
 } from '../domain/test.domain.entity';
-import { Test } from '../domain/entity/test.entity';
+import { Test } from './entity/test.entity';
 
 export class TestRepository extends Repository<Test> {
   async findOneByTestId(testId: number): Promise<Test> {

@@ -7,7 +7,7 @@ import {
   Res,
 } from '@nestjs/common';
 import { TestService } from '../application/test.service';
-import { Test } from '../domain/entity/test.entity';
+import { Test } from '../infrastructure/entity/test.entity';
 
 @Controller('test')
 export class TestController {

@@ -1,7 +1,7 @@
 import { Dependencies, Injectable } from '@nestjs/common';
 import { TestRepository } from '../infrastructure/test.repository';
 import { TestDomainEntity } from '../domain/test.domain.entity';
-import { Test } from '../domain/entity/test.entity';
+import { Test } from '../infrastructure/entity/test.entity';
 
 @Injectable()
 export class TestService {
