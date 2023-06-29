@@ -17,7 +17,7 @@ export const mysqlProvider = {
       username: config.database.user,
       password: config.database.password,
       database: config.database.db,
-      entities: [],
+      entities: [__dirname + '/test/domain/*{.ts,.js}'],
       namingStrategy: new SnakeNamingStrategy(),
       logging: true,
       synchronize: config.database.synchronize,
