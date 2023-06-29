@@ -13,12 +13,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   imports: [
     TestModule,
     MysqlModule,
-    TerminusModule,
-    ConfigModule,
-    HttpModule.register({
-      timeout: 5000,
-      maxRedirects: 5,
-    }),
     ConfigModule.forRoot({
       envFilePath: [envPathGenerator()],
       load: [databaseConfig],
