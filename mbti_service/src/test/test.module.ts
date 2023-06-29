@@ -6,21 +6,7 @@ import { TestService } from './application/test.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'mysql',
-        host: configService.get('host'),
-        port: configService.get('port'),
-        username: configService.get('user'),
-        password: configService.get('password'),
-        database: configService.get('db'),
-        synchronize: configService.get('synchronize'),
-      }),
-    }),
-  ],
+  imports: [],
   controllers: [TestController],
   providers: [TestService, TestRepository],
 })
