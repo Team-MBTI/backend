@@ -8,16 +8,15 @@ import {
 } from '@nestjs/common';
 import { TestService } from '../application/test.service';
 import { Test } from '../infrastructure/entity/test.entity';
-import { Question } from '../infrastructure/entity/question.entity';
 
 @Controller('test')
 export class TestController {
-  constructor(private readonly testService: TestService) {
-    this.testService = testService;
-  }
+  constructor(private readonly testService: TestService) {}
 
-  @Get('')
-  async findAll(): Promise<Question[]> {
-    return await this.testService.findAll();
+  @Get(':id')
+  async findOneByTestId(
+    @Param('id', new ParseIntPipe()) id: number,
+  ): Promise<Test> {
+    return await this.testService.findOneByTestId(id);
   }
 }
