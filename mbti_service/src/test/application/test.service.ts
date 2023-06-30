@@ -1,15 +1,15 @@
 import { Dependencies, Injectable } from '@nestjs/common';
-import { TestRepository } from '../infrastructure/test.repository';
-import { TestDomainEntity } from '../domain/test.domain.entity';
 import { Test } from '../infrastructure/entity/test.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm/index';
+import { QuestionRepository } from '../infrastructure/question.repository';
+import { Question } from '../infrastructure/entity/question.entity';
 
 @Injectable()
 export class TestService {
-  constructor(private readonly testRepository: TestRepository) {}
+  constructor(private questionRepository: QuestionRepository) {}
 
-  async findOneByTestId(testId: number): Promise<Test> {
-    const test = await this.findOneByTestId(testId);
-
-    return test;
+  async findAll(): Promise<Question[]> {
+    return await this.questionRepository.find();
   }
 }
