@@ -16,13 +16,15 @@ export type kakaoUserTypeResponse = {
 @Controller('auth')
 export class AuthController {
   constructor(
-    @Inject('loginUseCase')
+    @Inject('LoginUseCase')
     private readonly loginUsecase: loginUseCase,
   ) {}
 
   @Get('/login/kakao')
   @UseGuards(AuthGuard('kakao'))
-  async kakaoLoginHandler() {}
+  async kakaoLoginHandler() {
+    return;
+  }
 
   @Get('/kakao/callback')
   @UseGuards(AuthGuard('kakao'))
@@ -33,6 +35,11 @@ export class AuthController {
     const loginInfo = await this.loginUsecase.socialLogin(
       AuthDtoMapper.toSocialLoginCommand(req),
     );
-    return loginInfo;
+    res.setHeader('Authorization', `Bearer ${loginInfo.accessToken}`);
+    res.cookie('refresh-token', loginInfo.refreshToken, {
+      path: '/',
+      maxAge: 36000000,
+      httpOnly: true,
+    });
   }
 }

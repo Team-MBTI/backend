@@ -6,6 +6,7 @@ import { envPathGenerator } from './common/env.path.generator';
 import { healthCheckController } from './healthcheck.contorller';
 import { AuthModule } from './auth/auth.module';
 import kakaoLoginConfig from './config/kakao.login.config';
+import commonLoginConfig from './config/common.login.config';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import kakaoLoginConfig from './config/kakao.login.config';
     AuthModule,
     ConfigModule.forRoot({
       envFilePath: [envPathGenerator()],
-      load: [databaseConfig, kakaoLoginConfig],
+      load: [databaseConfig, kakaoLoginConfig, commonLoginConfig],
       isGlobal: true,
     }),
   ],
