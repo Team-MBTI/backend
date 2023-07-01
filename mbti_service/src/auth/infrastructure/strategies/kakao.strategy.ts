@@ -17,6 +17,7 @@ export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
     @Inject(kakaoLoginConfig.KEY)
     private readonly config: ConfigType<typeof kakaoLoginConfig>,
   ) {
+    console.log(config);
     super({
       clientID: config.clientId,
       clientSecret: '',
