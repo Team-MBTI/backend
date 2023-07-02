@@ -1,13 +1,21 @@
-import { Controller, Get, Inject, Req, Res, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Inject,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
-import { loginUseCase } from '../application/usecase/login.usecase';
+import { SessionUseCase } from '../application/usecase/login.usecase';
 import { AuthDtoMapper } from './auth.dto.mapper';
 
 export type kakaoUserTypeResponse = {
   user: {
     email: string;
-    nickName: string;
+    nickname: string;
     accessToken: string;
     refreshToken: string;
   };
@@ -16,9 +24,19 @@ export type kakaoUserTypeResponse = {
 @Controller('auth')
 export class AuthController {
   constructor(
-    @Inject('LoginUseCase')
-    private readonly loginUsecase: loginUseCase,
+    @Inject('SessionUseCase')
+    private readonly sessionUsecase: SessionUseCase,
   ) {}
+
+  @Post('/access_token/restore')
+  @UseGuards(AuthGuard('refresh'))
+  async get(
+    @Req() req: Request & { user: { email: string; nickname: string } },
+  ) {
+    await this.sessionUsecase.restoreAccessToken(
+      AuthDtoMapper.toAccessTokenRestoreCommand(req),
+    );
+  }
 
   @Get('/login/kakao')
   @UseGuards(AuthGuard('kakao'))
@@ -32,15 +50,26 @@ export class AuthController {
     @Req() req: Request & kakaoUserTypeResponse,
     @Res() res: Response,
   ) {
-    const loginInfo = await this.loginUsecase.socialLogin(
+    const loginInfo = await this.sessionUsecase.socialLogin(
       AuthDtoMapper.toSocialLoginCommand(req),
     );
     res.setHeader('Authorization', `Bearer ${loginInfo.accessToken}`);
     res.cookie('refresh-token', loginInfo.refreshToken, {
       path: '/',
-      maxAge: 36000000,
+      maxAge: 60 * 60 * 10,
       httpOnly: true,
     });
-    res.send('ok.log');
+    res.cookie('access-token', loginInfo.accessToken, {
+      path: '/',
+      maxAge: 60 * 60 * 10,
+      httpOnly: true,
+    });
+    res.status(200).send({ status: 'ok' });
+  }
+
+  @Get('logout')
+  @UseGuards(AuthGuard('access'))
+  async logoutHandler(@Req() req: Request & { user: { email: string } }) {
+    await this.sessionUsecase.logout(AuthDtoMapper.toLogoutCommand(req));
   }
 }

@@ -12,7 +12,6 @@ export class JwtTokenService implements TokenService {
   ) {}
 
   async createAccessToken(value: any) {
-    console.log(this.config.accessExpiresIn);
     const jwt = await jwService.sign({ ...value }, this.config.jwtSecret, {
       expiresIn: this.config.accessExpiresIn,
     });
@@ -20,7 +19,6 @@ export class JwtTokenService implements TokenService {
   }
 
   async createRefreshToken(value: any) {
-    console.log(this.config.refreshExpiresIn);
     const jwt = await jwService.sign({ ...value }, this.config.jwtSecret, {
       expiresIn: this.config.refreshExpiresIn,
     });

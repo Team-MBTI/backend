@@ -7,11 +7,13 @@ import { healthCheckController } from './healthcheck.contorller';
 import { AuthModule } from './auth/auth.module';
 import kakaoLoginConfig from './config/kakao.login.config';
 import commonLoginConfig from './config/common.login.config';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
     MysqlModule,
     AuthModule,
+    UserModule,
     ConfigModule.forRoot({
       envFilePath: [envPathGenerator()],
       load: [databaseConfig, kakaoLoginConfig, commonLoginConfig],
