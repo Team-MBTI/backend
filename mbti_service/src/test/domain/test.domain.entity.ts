@@ -26,25 +26,12 @@ export class TestDomainEntity {
       );
     return this.getProperties();
   }
-
-  public static getTest(getData: GetTestProperty) {
-    return new TestDomainEntity({ id: null, ...getData, questions: null });
-  }
-
   public getProperties() {
     return {
       id: this.id,
       name: this.name,
       imgUrl: this.imgUrl,
       questions: this.questions,
-    };
-  }
-
-  public getTestInfoProperties() {
-    return {
-      id: this.id,
-      name: this.name,
-      imgUrl: this.imgUrl,
     };
   }
 }

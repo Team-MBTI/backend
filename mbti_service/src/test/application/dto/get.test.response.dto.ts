@@ -16,12 +16,3 @@ export class TestResponseDto {
     this.questions = questions;
   }
 }
-
-export type CreateTestProperty = Partial<TestDtoConstructorInput>;
-
-export type TestDtoConstructorInput = {
-  id: number;
-  name: string;
-  imgUrl: string;
-  questions: Question[];
-};
