@@ -47,9 +47,7 @@ export class AuthController {
 
   @Get('/login/kakao')
   @UseGuards(AuthGuard('kakao'))
-  async kakaoLoginHandler() {
-    return;
-  }
+  async kakaoLoginHandler() {}
 
   @Get('/kakao/callback')
   @UseGuards(AuthGuard('kakao'))
@@ -61,6 +59,7 @@ export class AuthController {
       AuthDtoMapper.toSocialLoginCommand(req),
     );
     res.setHeader('Authorization', `Bearer ${loginInfo.accessToken}`);
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.cookie('refresh-token', loginInfo.refreshToken, {
       path: '/',
       maxAge: 60 * 60 * 10,
