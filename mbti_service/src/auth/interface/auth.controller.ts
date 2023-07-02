@@ -32,10 +32,16 @@ export class AuthController {
   @UseGuards(AuthGuard('refresh'))
   async get(
     @Req() req: Request & { user: { email: string; nickname: string } },
+    @Res() res: Response,
   ) {
-    await this.sessionUsecase.restoreAccessToken(
+    const accessToken = await this.sessionUsecase.restoreAccessToken(
       AuthDtoMapper.toAccessTokenRestoreCommand(req),
     );
+    res.cookie('access-token', accessToken, {
+      path: '/',
+      maxAge: 60 * 60 * 10,
+      httpOnly: true,
+    });
   }
 
   @Get('/login/kakao')
