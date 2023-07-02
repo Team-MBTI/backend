@@ -15,21 +15,4 @@ export class ChoiceScore {
     this.choiceTwoScore = choiceTwoScore;
     this.type = type;
   }
-
-  getProperties() {
-    return {
-      questionId: this.questionId,
-      choiceOneScore: this.choiceoneScore,
-      choiceTwoScore: this.choiceTwoScore,
-      type: this.type,
-    };
-  }
-
-  getScoreByChoice(choiceNumber: number) {
-    if (choiceNumber == 1) {
-      return this.choiceoneScore;
-    } else {
-      return this.choiceTwoScore;
-    }
-  }
 }
