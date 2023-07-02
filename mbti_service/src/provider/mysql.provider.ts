@@ -5,6 +5,8 @@ import { ConfigType } from '@nestjs/config';
 import databaseConfig from '../config/database.config';
 import { Test } from '../test/infrastructure/entity/test.entity';
 import { Question } from '../test/infrastructure/entity/question.entity';
+import { TestResult } from '../test/infrastructure/entity/test.result.entity';
+import { Mbti } from '../test/infrastructure/entity/mbti.entity';
 
 //todo : develop 과 main 에 대한 환경변수 별도로 설정
 export const mysqlProvider = {
@@ -19,7 +21,7 @@ export const mysqlProvider = {
       username: config.database.user,
       password: config.database.password,
       database: config.database.db,
-      entities: [Test, Question],
+      entities: [Test, Question, TestResult, Mbti],
       namingStrategy: new SnakeNamingStrategy(),
       logging: true,
       synchronize: config.database.synchronize,

@@ -14,6 +14,7 @@ import { GetQuestionDto } from './dto/get.question.dto';
 import { TestResponseDto } from './dto/get.test.response.dto';
 import { TestRequestDto } from './dto/get.test.request.dto';
 import { ScoreBoard } from '../domain/vo/score.board';
+import { Mbti } from '../infrastructure/entity/mbti.entity';
 
 @Injectable()
 export class TestService {
@@ -65,8 +66,24 @@ export class TestService {
   async getTestResult(testId: number, userScores: TestRequestDto) {
     const choiceScores = await this.getScoreBoard(testId);
     const scoreBoard = new ScoreBoard(choiceScores);
-    const result = scoreBoard.getTestResult(userScores.choices);
+    const mbti = scoreBoard.getTestResult(userScores.choices);
+    const result = await this.getMbtiResult(mbti);
     return result;
+  }
+
+  async getMbtiResult(mbti: string) {
+    const mbtiContent = await this.dataSource
+      .createQueryBuilder(Mbti, 'mbti')
+      .select('mbti')
+      .where('mbti.mbti = :mbti', {
+        mbti,
+      })
+      .getOne();
+
+    if (!mbtiContent) {
+      return null;
+    }
+    return mbtiContent;
   }
 
   async getScoreBoard(testId: number) {
