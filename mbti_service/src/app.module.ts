@@ -4,8 +4,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import databaseConfig from './config/database.config';
 import { envPathGenerator } from './common/env.path.generator';
 import { healthCheckController } from './healthcheck.controller';
-import { TerminusModule } from '@nestjs/terminus';
-import { HttpModule } from '@nestjs/axios';
 import { TestModule } from './test/test.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 

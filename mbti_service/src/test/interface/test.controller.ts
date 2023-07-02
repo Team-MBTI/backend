@@ -1,22 +1,30 @@
 import {
   Controller,
   Get,
-  HttpStatus,
+  HttpCode,
   Param,
   ParseIntPipe,
   Res,
 } from '@nestjs/common';
 import { TestService } from '../application/test.service';
 import { Test } from '../infrastructure/entity/test.entity';
+import { TestDomainEntity } from '../domain/test.domain.entity';
+import { CommonResponse } from '../../common/response/common.response.interface';
 
-@Controller('test')
+@Controller('tests')
 export class TestController {
   constructor(private readonly testService: TestService) {}
 
   @Get(':id')
-  async findOneByTestId(
+  @HttpCode(200)
+  async getTestQuestions(
     @Param('id', new ParseIntPipe()) id: number,
-  ): Promise<Test> {
-    return await this.testService.findOneByTestId(id);
+  ): Promise<CommonResponse> {
+    const data = await this.testService.getTestQuestions(id);
+    return {
+      statusCode: 200,
+      message: '테스트 문항 조회에 성공하였습니다.',
+      data: data,
+    };
   }
 }

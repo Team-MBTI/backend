@@ -1,17 +1,17 @@
-import { Question } from './vo/question.vo';
+import { QuestionVO } from './vo/question.vo';
 
 export class TestDomainEntity {
   private readonly id: number;
   private name: string;
   private imgUrl: string;
-  private questions: Question[];
+  private questions: QuestionVO[];
 
   constructor(inputData: TestConstructorInput) {
     this.id = inputData.id;
     this.name = inputData.name;
     this.imgUrl = inputData.imgUrl;
     this.questions = inputData.questions.map(
-      (questionSet) => new Question({ ...questionSet }),
+      (questionSet) => new QuestionVO({ ...questionSet }),
     );
   }
 
@@ -21,12 +21,14 @@ export class TestDomainEntity {
 
   public updateTest(updatableData: UpdateTestProperty) {
     if (updatableData?.questions.length > 0)
-      return {
-        ...updatableData,
-        questions: updatableData.questions.map(
-          (properties) => new Question({ ...properties }),
-        ),
-      };
+      this.questions = updatableData.questions.map(
+        (properties) => new QuestionVO({ ...properties }),
+      );
+    return this.getProperties();
+  }
+
+  public static getTest(getData: GetTestProperty) {
+    return new TestDomainEntity({ id: null, ...getData, questions: null });
   }
 
   public getProperties() {
@@ -35,6 +37,14 @@ export class TestDomainEntity {
       name: this.name,
       imgUrl: this.imgUrl,
       questions: this.questions,
+    };
+  }
+
+  public getTestInfoProperties() {
+    return {
+      id: this.id,
+      name: this.name,
+      imgUrl: this.imgUrl,
     };
   }
 }
@@ -59,3 +69,13 @@ export type QuestionCreateSet = {
 export type CreateTestProperty = Omit<TestConstructorInput, 'id'>;
 
 export type UpdateTestProperty = Partial<CreateTestProperty>;
+
+export type GetTestProperty = Pick<TestConstructorInput, 'name' | 'imgUrl'>;
+
+export const MBTI_TYPE = {
+  EI: 'EI',
+  NS: 'NS',
+  FT: 'FT',
+  JP: 'JP',
+} as const;
+type MBTI_TYPE = (typeof MBTI_TYPE)[keyof typeof MBTI_TYPE];

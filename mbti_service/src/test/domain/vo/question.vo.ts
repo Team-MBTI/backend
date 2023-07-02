@@ -1,4 +1,4 @@
-export class Question {
+export class QuestionVO {
   private questionNumber: number;
   private content: string;
   private type: string;
