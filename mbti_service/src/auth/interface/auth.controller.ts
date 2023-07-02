@@ -41,5 +41,6 @@ export class AuthController {
       maxAge: 36000000,
       httpOnly: true,
     });
+    res.send('ok.log');
   }
 }

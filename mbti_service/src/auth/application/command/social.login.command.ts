@@ -1,9 +1,9 @@
 export class SocialLoginCommand {
-  accessToken: string;
-  refreshToken: string;
+  nickName: string;
+  email: string;
 
-  constructor(input: { accessToken: string; refreshToken: string }) {
-    this.accessToken = input.accessToken;
-    this.refreshToken = input.refreshToken;
+  constructor(input: { nickName: string; email: string }) {
+    this.nickName = input.nickName;
+    this.email = input.email;
   }
 }

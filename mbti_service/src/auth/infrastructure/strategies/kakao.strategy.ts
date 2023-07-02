@@ -7,8 +7,6 @@ import { ConfigType } from '@nestjs/config';
 export type kakaoUserType = {
   email: string;
   nickName: string;
-  accessToken: string;
-  refreshToken: string;
 };
 
 @Injectable()
@@ -17,7 +15,6 @@ export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
     @Inject(kakaoLoginConfig.KEY)
     private readonly config: ConfigType<typeof kakaoLoginConfig>,
   ) {
-    console.log(config);
     super({
       clientID: config.clientId,
       clientSecret: '',
@@ -30,8 +27,6 @@ export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
     const payload: kakaoUserType = {
       email: profileJsonAccount.email,
       nickName: profileJsonAccount.profile.nickname,
-      accessToken,
-      refreshToken,
     };
     try {
       done(null, payload);

@@ -11,12 +11,12 @@ export class LoginService implements loginUseCase {
   ) {}
 
   async socialLogin(socialLoginCommand: SocialLoginCommand) {
-    const { accessToken, refreshToken } = socialLoginCommand;
+    const { nickName, email } = socialLoginCommand;
+    const payload = { nickName, email };
     const [accessTokenJwt, refreshTokenJwt] = await Promise.all([
-      this.tokenService.createAccessToken(accessToken),
-      this.tokenService.createRefreshToken(refreshToken),
+      this.tokenService.createAccessToken(payload),
+      this.tokenService.createRefreshToken(payload),
     ]);
-
     return { accessToken: accessTokenJwt, refreshToken: refreshTokenJwt };
   }
 }

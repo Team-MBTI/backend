@@ -11,16 +11,18 @@ export class JwtTokenService implements TokenService {
     private readonly config: ConfigType<typeof commonLoginConfig>,
   ) {}
 
-  async createRefreshToken(value: string) {
-    const jwt = await jwService.sign(value, this.config.jwtSecret, {
-      expiresIn: this.config.refreshExpiresIn,
+  async createAccessToken(value: any) {
+    console.log(this.config.accessExpiresIn);
+    const jwt = await jwService.sign({ ...value }, this.config.jwtSecret, {
+      expiresIn: this.config.accessExpiresIn,
     });
     return jwt;
   }
 
-  async createAccessToken(value: string) {
-    const jwt = await jwService.sign(value, this.config.jwtSecret, {
-      expiresIn: this.config.accessExpiresIn,
+  async createRefreshToken(value: any) {
+    console.log(this.config.refreshExpiresIn);
+    const jwt = await jwService.sign({ ...value }, this.config.jwtSecret, {
+      expiresIn: this.config.refreshExpiresIn,
     });
     return jwt;
   }

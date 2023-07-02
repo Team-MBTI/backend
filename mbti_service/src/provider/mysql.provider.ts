@@ -9,7 +9,6 @@ export const mysqlProvider = {
   inject: [databaseConfig.KEY],
   provide: 'DATA_SOURCE',
   useFactory: async (config: ConfigType<typeof databaseConfig>) => {
-    console.log(config);
     const dataSource = new DataSource({
       type: 'mysql',
       host: config.database.host,
