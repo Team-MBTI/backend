@@ -12,6 +12,8 @@ import { QuestionVO } from '../domain/vo/question.vo';
 import { Transactional } from 'typeorm-transactional';
 import { GetQuestionDto } from './dto/get.question.dto';
 import { TestResponseDto } from './dto/get.test.response.dto';
+import { TestRequestDto } from './dto/get.test.request.dto';
+import { ScoreBoard } from '../domain/vo/score.board';
 
 @Injectable()
 export class TestService {
@@ -21,36 +23,12 @@ export class TestService {
   ) {}
 
   async getTestQuestions(testId: number) {
-    const questions = await this.getQuestionsByTestId(testId); //GetQuestionDto[]
-    const testInfo = await this.getTestInfo(testId); //TestResponseDto
-
-    // const testProperties = testInfo.getTestInfoProperties();
-
-    // console.log(testProperties.id, testProperties.imgUrl, testProperties.name);
-
+    const questions = await this.getQuestionsByTestId(testId);
+    const testInfo = await this.getTestInfo(testId);
     const res = new TestResponseDto(testInfo, questions);
 
     return res;
   }
-
-  //   async getTest(testId: number) {
-  //     const res = await this.dataSource
-  //       .createQueryBuilder(Test, 'test')
-  //       .innerJoin('question', 'question', 'test.id = question.test_id')
-  //       .where('test.id = :testId', {
-  //         testId,
-  //       })
-  //       .select([
-  //         'test.id AS test_id',
-  //         'test.name as test_name',
-  //         'test.img_url as test_img_url',
-  //         'question.question_number as question_number',
-  //         'question.content as question_content',
-  //       ])
-
-  //       .getRawMany();
-  //     return res;
-  //   }
 
   async getQuestionsByTestId(testId: number) {
     const questions: Question[] = await this.dataSource
@@ -66,8 +44,6 @@ export class TestService {
         testId,
       })
       .getMany();
-
-    console.log(questions[0].choiceOneContent);
     return questions;
   }
 
@@ -83,9 +59,23 @@ export class TestService {
     if (!test) {
       return null;
     }
-
-    console.log(test.id, test.imgUrl, test.questions);
-
     return test;
+  }
+
+  async getTestResult(testId: number, userScores: TestRequestDto) {
+    const choiceScores = await this.getScoreBoard(testId);
+    const scoreBoard = new ScoreBoard(choiceScores);
+    const result = scoreBoard.getTestResult(userScores.choices);
+    return result;
+  }
+
+  async getScoreBoard(testId: number) {
+    const scores = await this.dataSource
+      .createQueryBuilder(Question, 'question')
+      .where('question.test_id = :testId', {
+        testId,
+      })
+      .getMany();
+    return scores.map((s) => s.toRequestEntity());
   }
 }
