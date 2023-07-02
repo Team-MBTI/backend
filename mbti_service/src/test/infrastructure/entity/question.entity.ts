@@ -9,6 +9,8 @@ import { Test } from './test.entity';
 import { TestDomainEntity } from '../../domain/test.domain.entity';
 import { QuestionVO } from './../../domain/vo/question.vo';
 import { GetQuestionDto } from '../../application/dto/get.question.dto';
+import { TestRequestDto } from '../../application/dto/get.test.request.dto';
+import { ChoiceScore } from '../../domain/vo/choice.score';
 
 @Entity()
 export class Question extends BaseEntity {
@@ -39,15 +41,12 @@ export class Question extends BaseEntity {
   @Column()
   choiceTwoScore: number;
 
-  toDtoEntity() {
-    return new QuestionVO({
-      questionNumber: this.questionNumber,
-      content: this.content,
-      choiceOneContent: this.choiceOneContent,
-      choiceTwoContent: this.choiceTwoContent,
-      choiceOneScore: this.choiceOneScore,
-      choiceTwoScore: this.choiceTwoScore,
-      type: this.type,
-    });
+  toRequestEntity() {
+    return new ChoiceScore(
+      this.id,
+      this.choiceOneScore,
+      this.choiceTwoScore,
+      this.type,
+    );
   }
 }
