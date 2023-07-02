@@ -27,7 +27,7 @@ export class LocalRefreshStrategy extends PassportStrategy(
   }
 
   async validate(req: Request, payload: { nickname: string; email: string }) {
-    const refreshToken = req.headers.cookie.replace('refreshToken=', '');
+    const refreshToken = req.headers.authorization.replace('Bearer ', '');
     const session = await this.sessionReader.getSession(refreshToken);
     if (!session)
       throw new UnauthorizedException('해당하는 세션이 존재하지 않습니다');

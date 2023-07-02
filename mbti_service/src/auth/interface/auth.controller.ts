@@ -28,7 +28,7 @@ export class AuthController {
     private readonly sessionUsecase: SessionUseCase,
   ) {}
 
-  @Post('/access_token/restore')
+  @Post('/access-token/restore')
   @UseGuards(AuthGuard('refresh'))
   async get(
     @Req() req: Request & { user: { email: string; nickname: string } },
@@ -42,6 +42,7 @@ export class AuthController {
       maxAge: 60 * 60 * 10,
       httpOnly: true,
     });
+    res.status(200).send({ status: 'ok' });
   }
 
   @Get('/login/kakao')
@@ -75,7 +76,11 @@ export class AuthController {
 
   @Get('logout')
   @UseGuards(AuthGuard('access'))
-  async logoutHandler(@Req() req: Request & { user: { email: string } }) {
+  async logoutHandler(
+    @Req() req: Request & { user: { email: string } },
+    @Res() res: Response,
+  ) {
     await this.sessionUsecase.logout(AuthDtoMapper.toLogoutCommand(req));
+    res.status(200).send({ status: 'ok' });
   }
 }
