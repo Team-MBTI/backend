@@ -7,6 +7,7 @@ export class AuthDtoMapper {
   public static toSocialLoginCommand(request: Request & kakaoUserTypeResponse) {
     return new SocialLoginCommand({
       ...request.user,
+      userId: Number(request.user.userId),
     });
   }
 

@@ -13,12 +13,13 @@ export class UserRepository implements IUserRepository {
 
   async create(user: UserModel) {
     const { id, ...properties } = user.getProperties();
-    await this.dataSource
+    const result = await this.dataSource
       .createQueryBuilder()
       .insert()
       .into(UserEntity)
       .values({ ...properties })
       .execute();
+    return result.generatedMaps[0].id;
   }
 
   async getUserByUserEmail(email: string) {
