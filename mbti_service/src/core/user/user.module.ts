@@ -5,10 +5,11 @@ import { UseStore } from './infrastructure/user.store';
 import { MysqlModule } from '../../provider/database.module';
 import { TestResultModule } from '../test.result/test.result.module';
 import { UserService } from './application/user.service';
+import { UserController } from './interface/user.controller';
 
 @Module({
   imports: [MysqlModule, TestResultModule],
-  controllers: [],
+  controllers: [UserController],
   providers: [
     {
       provide: 'UserUseCase',

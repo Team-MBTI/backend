@@ -1,7 +1,7 @@
 export class SocialLoginCommand {
-  nickname: string;
-  email: string;
-  userId: number;
+  readonly nickname: string;
+  readonly email: string;
+  readonly userId: number;
 
   constructor(input: { nickname: string; email: string; userId: number }) {
     this.nickname = input.nickname;

@@ -27,4 +27,4 @@ import { TestResultModule } from '../test.result/test.result.module';
   ],
   exports: [],
 })
-export class AuthModule {}
+export class TestModule {}

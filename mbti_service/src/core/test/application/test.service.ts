@@ -7,6 +7,7 @@ import { TestSubmitCommand } from './command/test.submit.command';
 import { TestDomainService } from '../domain/test.domain.service';
 import { ITestResultStore } from '../../test.result/application/data.access/test.result.store.interface';
 import { ITestResultReader } from '../../test.result/application/data.access/test.result.reader.interface';
+import { SubmitTestInfo } from './info/submit.test.info';
 
 @Injectable()
 export class TestService implements TestUseCase {
@@ -37,7 +38,13 @@ export class TestService implements TestUseCase {
       answers,
       test,
     );
-    const testResult = this.testDomianService.createResult(score, testId);
-    await this.testResultStore.create(testResult, mbti);
+    const destination = await this.testResultReader.getDestinationByMbti(mbti);
+    const testResult = this.testDomianService.createResult(
+      score,
+      testId,
+      destination,
+    );
+    await this.testResultStore.create(testResult);
+    return new SubmitTestInfo(testResult);
   }
 }

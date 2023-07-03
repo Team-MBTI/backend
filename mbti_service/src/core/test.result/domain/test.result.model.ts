@@ -50,17 +50,13 @@ export class TestResultModel {
   }
 
   public static createTestResult(
-    input: Omit<
-      TestResultContructorInput,
-      'id' | 'createdAt' | 'userId' | 'destination'
-    >,
+    input: Omit<TestResultContructorInput, 'id' | 'createdAt' | 'userId'>,
   ) {
     return new TestResultModel({
       ...input,
       id: null,
       createdAt: null,
       userId: null,
-      destination: null,
     });
   }
 }

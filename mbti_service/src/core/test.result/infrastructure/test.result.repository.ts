@@ -13,10 +13,14 @@ export class TestResultRepository implements ITestResultRepository {
     private readonly dataSource: DataSource,
   ) {}
 
-  async create(testResult: TestResultModel, mbti: MBTI) {
-    const mbtiEntity = await this.dataSource
+  async create(testResult: TestResultModel) {
+    const mbti = testResult.getProperteis().destination.mbti.key;
+
+    const destinationEntity = await this.dataSource
       .createQueryBuilder(DestinationEntity, 'destination')
-      .where('destination.mbti = :mbti', { mbti: mbti.key })
+      .where('destination.mbti = :mbti', {
+        mbti,
+      })
       .getOne();
 
     await this.dataSource
@@ -25,7 +29,7 @@ export class TestResultRepository implements ITestResultRepository {
       .into(TestResultEntity)
       .values({
         ...testResult,
-        destination: mbtiEntity,
+        destination: destinationEntity,
       })
       .execute();
   }
@@ -39,7 +43,7 @@ export class TestResultRepository implements ITestResultRepository {
       .getOne();
 
     if (!result) return null;
-    return result.toTestResultModel();
+    return result.toTestResultModelDetail();
   }
 
   async getDestinationByMbti(mbti: MBTI) {
@@ -50,5 +54,24 @@ export class TestResultRepository implements ITestResultRepository {
 
     if (!result) return null;
     return result.toDestination();
+  }
+
+  async getById(resultId: number): Promise<TestResultModel> {
+    const result = await this.dataSource
+      .createQueryBuilder(TestResultEntity, 'result')
+      .where('result.id', { id: resultId })
+      .getOne();
+
+    if (!result) return null;
+    return result.toTestResultModel();
+  }
+
+  async updateUserId(testId: number, userId: number): Promise<void> {
+    await this.dataSource
+      .createQueryBuilder()
+      .update<TestResultEntity>(TestResultEntity)
+      .set({ userId })
+      .where('id = :testId', { testId })
+      .execute();
   }
 }

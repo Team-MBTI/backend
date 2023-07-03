@@ -71,8 +71,12 @@ export class TestDomainService {
     };
   }
 
-  public createResult(score: ScoreType, testId: number) {
-    return TestResultModel.createTestResult({ ...score, testId });
+  public createResult(
+    score: ScoreType,
+    testId: number,
+    destination: Destination,
+  ) {
+    return TestResultModel.createTestResult({ ...score, testId, destination });
   }
 
   private decideMBTI(

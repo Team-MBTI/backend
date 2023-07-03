@@ -22,7 +22,7 @@ export class DestinationEntity {
   @Column()
   content: string;
 
-  @Column()
+  @Column({ nullable: true })
   contentImgUrl: string;
 
   @Column()

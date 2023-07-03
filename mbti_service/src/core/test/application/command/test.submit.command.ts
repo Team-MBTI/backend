@@ -4,8 +4,8 @@ export type answerType = {
 };
 
 export class TestSubmitCommand {
-  testId: number;
-  answers: answerType[];
+  readonly testId: number;
+  readonly answers: answerType[];
 
   constructor(testId: number, answer: answerType[]) {
     this.testId = testId;

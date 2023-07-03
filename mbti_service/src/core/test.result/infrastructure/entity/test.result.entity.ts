@@ -7,7 +7,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { TestResultModel } from '../../domain/test.result.model';
-import { Destination } from '../../domain/vo/destination.vo';
 import { DestinationEntity } from './destination.entity';
 
 @Entity({ name: 'test_result' })
@@ -33,14 +32,14 @@ export class TestResultEntity {
   @Column()
   JPResult: number;
 
-  @OneToOne(() => Destination)
+  @OneToOne(() => DestinationEntity)
   @JoinColumn()
   destination: DestinationEntity;
 
   @CreateDateColumn()
   createdAt: Date;
 
-  toTestResultModel() {
+  toTestResultModelDetail() {
     return new TestResultModel({
       id: this.id,
       userId: this.userId,
@@ -51,6 +50,19 @@ export class TestResultEntity {
       JPResult: this.JPResult,
       createdAt: this.createdAt,
       destination: this.destination.toDestination().getProperties(),
+    });
+  }
+  toTestResultModel() {
+    return new TestResultModel({
+      id: this.id,
+      userId: this.userId,
+      testId: this.testId,
+      EIResult: this.EIResult,
+      NSResult: this.NSResult,
+      FTResult: this.FTResult,
+      JPResult: this.JPResult,
+      createdAt: this.createdAt,
+      destination: null,
     });
   }
 }

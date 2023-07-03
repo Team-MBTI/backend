@@ -1,9 +1,9 @@
 import { TestModel } from '../../domain/test.model';
 
 export class GetTestsInfo {
-  id: number;
-  name: string;
-  imgUrl: string;
+  readonly id: number;
+  readonly name: string;
+  readonly imgUrl: string;
 
   constructor(test: TestModel) {
     const properteis = test.getProperties();

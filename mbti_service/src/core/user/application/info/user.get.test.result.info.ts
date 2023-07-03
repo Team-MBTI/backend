@@ -1,11 +1,11 @@
 import { TestResultModel } from '../../../test.result/domain/test.result.model';
 
 export class GetUserTestResultInfo {
-  id: number;
-  name: string;
-  content: string;
-  createdAt: Date;
-  destination: {
+  readonly id: number;
+  readonly name: string;
+  readonly content: string;
+  readonly createdAt: Date;
+  readonly destination: {
     name: string;
     imgUrl: string;
     content: string;

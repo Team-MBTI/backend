@@ -10,10 +10,10 @@ export type QuestionInfoType = {
 };
 
 export class GetTestInfo {
-  id: number;
-  name: string;
-  imgUrl: string;
-  questions: QuestionInfoType[];
+  readonly id: number;
+  readonly name: string;
+  readonly imgUrl: string;
+  readonly questions: QuestionInfoType[];
 
   constructor(test: TestModel) {
     const properties = test.getProperties();
