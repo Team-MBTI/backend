@@ -3,8 +3,10 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { addTransactionalDataSource } from 'typeorm-transactional';
 import { ConfigType } from '@nestjs/config';
 import databaseConfig from '../config/database.config';
-import { UserEntity } from '../user/infrastructure/entity/user.entity';
-import { SessionEntity } from '../auth/infrastructure/data.access/entity/session.entity';
+import { UserEntity } from '../core/user/infrastructure/entity/user.entity';
+import { SessionEntity } from '../core/auth/infrastructure/data.access/entity/session.entity';
+import { QuestionEntity } from '../core/test/infrastructure/entity/question.entity';
+import { TestEntity } from '../core/test/infrastructure/entity/test.entity';
 
 //todo : develop 과 main 에 대한 환경변수 별도로 설정
 export const mysqlProvider = {
@@ -18,7 +20,7 @@ export const mysqlProvider = {
       username: config.database.user,
       password: config.database.password,
       database: config.database.db,
-      entities: [UserEntity, SessionEntity],
+      entities: [UserEntity, SessionEntity, QuestionEntity, TestEntity],
       namingStrategy: new SnakeNamingStrategy(),
       logging: true,
       synchronize: config.database.synchronize,
