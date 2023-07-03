@@ -7,7 +7,10 @@ import { SubmitTestRequest } from './requetst/test.submit.request';
 import { TestDtoMapper } from './test.dto.mapper';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SubmitTestResponse } from './response/submit.test.response';
-import { ApiSuccessResponseDto } from '../../../common/decorator/swagger.common.response.decorator';
+import {
+  ApiSuccessResponseDto,
+  ApiSuccessResponsesDto,
+} from '../../../common/decorator/swagger.common.response.decorator';
 
 @ApiTags('TEST 관련 api')
 @Controller('tests')
@@ -21,7 +24,7 @@ export class TestController {
     summary: '테스트 리스트 fetch API',
     description: 'Test 목록을 가져오는 api 이다.',
   })
-  @ApiSuccessResponseDto(GetTestsResponse)
+  @ApiSuccessResponsesDto(GetTestsResponse)
   @Get()
   async getTests() {
     const infos = await this.testUseCase.getTests();
