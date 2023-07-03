@@ -73,7 +73,7 @@ export class AuthController {
       maxAge: 60 * 60 * 10,
       httpOnly: true,
     });
-    res.redirect(' http://localhost:3000');
+    res.redirect('http://localhost:3000');
   }
 
   @Get('logout')
