@@ -21,10 +21,6 @@ export class TestController {
     summary: '테스트 리스트 fetch API',
     description: 'Test 목록을 가져오는 api 이다.',
   })
-  @ApiResponse({
-    description: '성공응답시',
-    type: CommonSuccessResponse<GetTestsResponse[]>,
-  })
   @ApiSuccessResponseDto(GetTestsResponse)
   @Get()
   async getTests() {
@@ -37,10 +33,6 @@ export class TestController {
     summary: '테스트 세부 fetch API',
     description: 'testId 에 해당하는 TestSet 을 가져오는 API 이다.',
   })
-  @ApiResponse({
-    description: '성공응답시',
-    type: CommonSuccessResponse<GetTestResponse>,
-  })
   @ApiSuccessResponseDto(GetTestResponse)
   @Get(':testId')
   async getTest(@Param('testId') testId: number) {
@@ -52,10 +44,6 @@ export class TestController {
   @ApiOperation({
     summary: '테스트 제출 API',
     description: 'testId 에 해당하는 test 를 제출하는 API.',
-  })
-  @ApiResponse({
-    description: '성공응답시',
-    type: CommonSuccessResponse<SubmitTestResponse>,
   })
   @ApiSuccessResponseDto(SubmitTestResponse)
   @Post(':testId/submit')
