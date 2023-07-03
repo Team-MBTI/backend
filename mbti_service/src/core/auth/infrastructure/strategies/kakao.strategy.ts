@@ -10,6 +10,7 @@ import kakaoLoginConfig from '../../../../config/kakao.login.config';
 export type kakaoUserType = {
   email: string;
   nickname: string;
+  userId: number;
 };
 
 @Injectable()
@@ -33,21 +34,25 @@ export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
 
   async validate(accessToken, refreshToken, profile, done) {
     const profileJsonAccount = profile._json.kakao_account;
+    let userId = 0;
     const createdUser = await this.userReader.getUserByEmail(
       profileJsonAccount.email,
     );
 
     if (!createdUser)
-      await this.userStore.create(
+      userId = await this.userStore.create(
         UserModel.signUpSocial({
           ...profileJsonAccount,
           nickname: profileJsonAccount.profile.nickname,
           createdAt: new Date(),
         }),
       );
+    userId = createdUser.getProperties().id;
+
     const payload: kakaoUserType = {
       email: profileJsonAccount.email,
       nickname: profileJsonAccount.profile.nickname,
+      userId,
     };
     try {
       done(null, payload);

@@ -19,6 +19,7 @@ export type kakaoUserTypeResponse = {
     nickname: string;
     accessToken: string;
     refreshToken: string;
+    userId: number;
   };
 };
 
@@ -32,7 +33,10 @@ export class AuthController {
   @Post('/access-token/restore')
   @UseGuards(AuthGuard('refresh'))
   async get(
-    @Req() req: Request & { user: { email: string; nickname: string } },
+    @Req()
+    req: Request & {
+      user: { email: string; nickname: string; userId: string };
+    },
     @Res() res: Response,
   ) {
     const accessToken = await this.sessionUsecase.restoreAccessToken(
@@ -73,7 +77,7 @@ export class AuthController {
       maxAge: 60 * 60 * 10,
       httpOnly: true,
     });
-    res.redirect('http://localhost:3000');
+    res.redirect('localhost:');
   }
 
   @Get('logout')

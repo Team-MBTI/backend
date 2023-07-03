@@ -12,11 +12,11 @@ export type UserConstructorInput = {
 };
 export type CommonUserSignUpType = Omit<
   UserConstructorInput,
-  'id' | 'updatedAt' | 'provider'
+  'id' | 'updatedAt' | 'provider' | 'createdAt' | 'updatedAt'
 >;
-export type SocialUserSignUpType = Omit<
+export type SocialUserSignUpType = Pick<
   UserConstructorInput,
-  'id' | 'updatedAt' | 'provider' | 'password' | 'phoneNumber'
+  'email' | 'nickname'
 >;
 
 export class UserModel {
@@ -44,8 +44,9 @@ export class UserModel {
     return new UserModel({
       ...input,
       id: null,
-      updatedAt: null,
       provider: PROVIDER.COMMON,
+      updatedAt: null,
+      createdAt: null,
     });
   }
 
@@ -53,10 +54,11 @@ export class UserModel {
     return new UserModel({
       ...input,
       id: null,
-      updatedAt: null,
       provider: PROVIDER.KAKAO,
       password: null,
       phoneNumber: null,
+      updatedAt: null,
+      createdAt: null,
     });
   }
 

@@ -11,6 +11,7 @@ export class UseStore implements IUserStore {
   ) {}
 
   async create(user: UserModel) {
-    await this.userRepository.create(user);
+    const userId = await this.userRepository.create(user);
+    return userId;
   }
 }

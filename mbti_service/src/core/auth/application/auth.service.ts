@@ -16,8 +16,8 @@ export class LoginService implements SessionUseCase {
   ) {}
 
   async socialLogin(command: SocialLoginCommand) {
-    const { nickname, email } = command;
-    const payload = { nickname, email };
+    const { nickname, email, userId } = command;
+    const payload = { nickname, email, userId };
     const [accessTokenJwt, refreshTokenJwt] = await Promise.all([
       this.tokenService.createAccessToken(payload),
       this.tokenService.createRefreshToken(payload),

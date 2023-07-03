@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { TestEntity } from './test.entity';
 import { Question } from '../../domain/vo/question.vo';
+import { MBTIPartial } from '../../domain/vo/mbti.partial.vo';
 
 @Entity({ name: 'question' })
 export class QuestionEntity {
@@ -44,7 +45,7 @@ export class QuestionEntity {
     return new Question({
       questionNumber: this.questionNumber,
       content: this.content,
-      type: this.type,
+      type: MBTIPartial.valueOf(this.type),
       choiceOneContent: this.choiceOneContent,
       choiceOneScore: this.choiceOneScore,
       choiceTwoContent: this.choiceTwoContent,

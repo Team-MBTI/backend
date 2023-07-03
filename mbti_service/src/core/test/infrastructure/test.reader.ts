@@ -8,7 +8,7 @@ export class TestReader implements ITestReader {
     @Inject('ITestRepository')
     private readonly testRepository: ITestRepository,
   ) {}
-  async get(testId: string) {
+  async get(testId: number) {
     const testModel = await this.testRepository.get(testId);
     return testModel;
   }

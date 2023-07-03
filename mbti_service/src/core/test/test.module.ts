@@ -4,11 +4,14 @@ import { TestRepository } from './infrastructure/test.repository';
 import { TestService } from './application/test.service';
 import { TestReader } from './infrastructure/test.reader';
 import { MysqlModule } from '../../provider/database.module';
+import { TestDomainService } from './domain/test.domain.service';
+import { TestResultModule } from '../test.result/test.result.module';
 
 @Module({
-  imports: [MysqlModule],
+  imports: [MysqlModule, TestResultModule],
   controllers: [TestController],
   providers: [
+    TestDomainService,
     {
       provide: 'ITestRepository',
       useClass: TestRepository,
