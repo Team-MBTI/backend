@@ -1,24 +1,17 @@
 import { Module } from '@nestjs/common';
 import { MysqlModule } from './provider/database.module';
 import { ConfigModule } from '@nestjs/config';
-import databaseConfig from './config/database.config';
-import { envPathGenerator } from './common/env.path.generator';
 import { healthCheckController } from './healthcheck.contorller';
-import { AuthModule } from './auth/auth.module';
-import kakaoLoginConfig from './config/kakao.login.config';
-import commonLoginConfig from './config/common.login.config';
-import { UserModule } from './user/user.module';
+import { AuthModule } from './core/auth/auth.module';
+import { UserModule } from './core/user/user.module';
+import { configModuleOptions } from './provider/config.module.options';
 
 @Module({
   imports: [
     MysqlModule,
     AuthModule,
     UserModule,
-    ConfigModule.forRoot({
-      envFilePath: [envPathGenerator()],
-      load: [databaseConfig, kakaoLoginConfig, commonLoginConfig],
-      isGlobal: true,
-    }),
+    ConfigModule.forRoot({ ...configModuleOptions }),
   ],
   controllers: [healthCheckController],
   providers: [],

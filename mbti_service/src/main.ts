@@ -4,7 +4,7 @@ import { initializeTransactionalContext } from 'typeorm-transactional';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
+  app.enableCors({ origin: '*' });
   initializeTransactionalContext();
   await app.listen(3000);
 }
