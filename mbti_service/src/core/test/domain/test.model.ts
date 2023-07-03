@@ -1,3 +1,4 @@
+import { MBTIPartial } from './vo/mbti.partial.vo';
 import { Question } from './vo/question.vo';
 
 export class TestModel {
@@ -39,7 +40,7 @@ export type TestConstructorInput = {
 export type QuestionCreateSet = {
   content: string;
   questionNumber: number;
-  type: string;
+  type: MBTIPartial;
   choiceOneContent: string;
   choiceOneScore: number;
   choiceTwoContent: string;

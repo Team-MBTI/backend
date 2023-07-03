@@ -17,7 +17,7 @@ export class TestRepository implements ITestRepository {
     return tests.map((test) => test.toFetchTestModel());
   }
 
-  async get(testId: string) {
+  async get(testId: number) {
     const test = await this.dataSource
       .createQueryBuilder(TestEntity, 'test')
       .leftJoinAndSelect('test.questions', 'questions')

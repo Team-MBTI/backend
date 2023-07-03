@@ -1,6 +1,6 @@
 export class RestoreAccessTokenComamnd {
-  email: string;
-  nickname: string;
+  readonly email: string;
+  readonly nickname: string;
 
   constructor(email: string, nickname: string) {
     this.email = email;

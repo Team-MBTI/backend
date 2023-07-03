@@ -1,7 +1,9 @@
+import { MBTIPartial } from './mbti.partial.vo';
+
 export class Question {
   private questionNumber: number;
   private content: string;
-  private type: string;
+  private type: MBTIPartial;
   private choiceOneContent: string;
   private choiceOneScore: number;
   private choiceTwoContent: string;
@@ -33,7 +35,7 @@ export class Question {
 export type QuestionCreateInput = {
   questionNumber: number;
   content: string;
-  type: string;
+  type: MBTIPartial;
   choiceOneContent: string;
   choiceOneScore: number;
   choiceTwoContent: string;
