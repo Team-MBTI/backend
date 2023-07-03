@@ -27,7 +27,6 @@ export class UserController {
   })
   @ApiBearerAuth()
   @ApiSuccessResponseDto(GetUserTestResultResponse)
-  @ApiResponse({ description: '성공응답시', type: CommonSuccessResponse })
   @Get('/results')
   @UseGuards(AuthGuard('access'))
   async getTestResultHandler(
