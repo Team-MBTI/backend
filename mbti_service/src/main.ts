@@ -6,7 +6,13 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({ origin: 'http://localhost:3000', credentials: true });
+  app.enableCors({
+    origin: [
+      'http://localhost:3000',
+      'https://frontend-8rqlh4vgq-askmeanything.vercel.app/',
+    ],
+    credentials: true,
+  });
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
   const config = new DocumentBuilder()

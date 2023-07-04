@@ -38,7 +38,7 @@ export class TestDomainService {
     questionsSet.forEach((questionSet) => {
       testMap.set(questionSet.questionNumber, questionSet);
     });
-    answers.map((answer) => {
+    answers.forEach((answer) => {
       const selectedQuestion = testMap.get(answer.questionNumber);
       const type = selectedQuestion.type;
       const pick = answer.choiceNumber;

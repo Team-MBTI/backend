@@ -95,7 +95,7 @@ export class AuthController {
       maxAge: 60 * 60 * 10,
       httpOnly: true,
     });
-    res.redirect('localhost:');
+    res.redirect('https://frontend-8rqlh4vgq-askmeanything.vercel.app/');
   }
 
   @ApiOperation({
