@@ -13,12 +13,12 @@ export class TestResultModel {
 
   constructor(input: TestResultContructorInput) {
     this.id = input.id;
+    this.testId = input.testId;
     this.userId = input.userId;
     this.EIResult = input.EIResult;
     this.NSResult = input.NSResult;
     this.FTResult = input.FTResult;
     this.JPResult = input.JPResult;
-    this.createdAt = input.createdAt;
     this.destination = new Destination(input.destination);
   }
 
@@ -39,6 +39,7 @@ export class TestResultModel {
   public getProperteis() {
     return {
       id: this.id,
+      testId: this.testId,
       userId: this.userId,
       EIResult: this.EIResult,
       NSResult: this.NSResult,
