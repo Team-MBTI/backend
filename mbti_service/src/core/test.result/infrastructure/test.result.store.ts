@@ -11,10 +11,11 @@ export class TestResultStore implements ITestResultStore {
   ) {}
 
   async create(testResult: TestResultModel) {
-    await this.testResultRepository.create(testResult);
+    const resultId = await this.testResultRepository.create(testResult);
+    return resultId;
   }
 
   async updateUserId(testId: number, userId: number): Promise<void> {
-    throw new Error('Method not implemented.');
+    await this.testResultRepository.updateUserId(testId, userId);
   }
 }

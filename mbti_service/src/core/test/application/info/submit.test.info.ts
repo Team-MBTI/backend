@@ -8,10 +8,10 @@ export class SubmitTestInfo {
   readonly destinationContentImgUrl: string;
   readonly mbti: string;
 
-  constructor(testResult: TestResultModel) {
+  constructor(testResult: TestResultModel, resultId: number) {
     const properties = testResult.getProperteis();
     const destination = properties.destination;
-    this.resultId = properties.id;
+    this.resultId = resultId;
     this.destinationName = destination.name;
     this.destinationImgUrl = destination.imgUrl;
     this.destinationContent = destination.content;
