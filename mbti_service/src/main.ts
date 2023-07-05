@@ -18,7 +18,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('MBTI API DOCS')
     .addServer('http://slb-18020453.ncloudslb.com')
-    .setDescription('mbti 서비스에 사용하기 위한 swagger')
+    .setDescription('mbti 서비스에 사용하기 위한 swagger url')
     .setVersion('1.0')
     .build();
   initializeTransactionalContext();
