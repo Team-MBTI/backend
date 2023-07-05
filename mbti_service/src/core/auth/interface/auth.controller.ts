@@ -83,8 +83,12 @@ export class AuthController {
     const loginInfo = await this.sessionUsecase.socialLogin(
       AuthDtoMapper.toSocialLoginCommand(req),
     );
-    res.setHeader('Authorization', `Bearer ${loginInfo.accessToken}`);
-    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    res.setHeader(
+      'Access-Control-Allow-Origin',
+      'http://frontend-brcip0p5c-askmeanything.vercel.app',
+    );
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.cookie('refresh-token', loginInfo.refreshToken, {
       path: '/',
       maxAge: 60 * 60 * 10,
@@ -95,7 +99,7 @@ export class AuthController {
       maxAge: 60 * 60 * 10,
       httpOnly: true,
     });
-    res.redirect('https://frontend-9hv4v13pi-askmeanything.vercel.app/');
+    res.redirect('http://frontend-brcip0p5c-askmeanything.vercel.app');
   }
 
   @ApiOperation({
