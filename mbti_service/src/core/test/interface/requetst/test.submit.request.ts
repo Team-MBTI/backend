@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, Max, Min } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsNotEmpty,
+  IsNumber,
+  Max,
+  Min,
+  ValidateNested,
+} from 'class-validator';
 
 export class AnswerRequst {
   @ApiProperty({ description: '문제의 순번', example: 1 })
@@ -18,7 +25,8 @@ export class AnswerRequst {
 }
 
 export class SubmitTestRequest {
-  @IsNotEmpty()
+  @ValidateNested({ each: true })
+  @Type(() => AnswerRequst)
   @ApiProperty({
     type: [AnswerRequst],
   })
