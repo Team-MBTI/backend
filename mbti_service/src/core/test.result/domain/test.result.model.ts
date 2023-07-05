@@ -14,6 +14,7 @@ export class TestResultModel {
   constructor(input: TestResultContructorInput) {
     this.id = input.id;
     this.userId = input.userId;
+    this.testId = input.testId;
     this.EIResult = input.EIResult;
     this.NSResult = input.NSResult;
     this.FTResult = input.FTResult;
@@ -39,6 +40,7 @@ export class TestResultModel {
   public getProperteis() {
     return {
       id: this.id,
+      testId: this.testId,
       userId: this.userId,
       EIResult: this.EIResult,
       NSResult: this.NSResult,

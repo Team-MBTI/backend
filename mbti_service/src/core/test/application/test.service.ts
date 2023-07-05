@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { TestUseCase } from './usecase/test.usecase';
 import { ITestReader } from './outport/data.access/test.reader.interface';
 import { GetTestsInfo } from './info/get.tests.info';
@@ -28,6 +28,8 @@ export class TestService implements TestUseCase {
 
   async getTest(testId: number) {
     const testModel = await this.testReader.get(testId);
+    if (!testModel)
+      throw new NotFoundException('해당 하는 testModel 이 없습니다.');
     return new GetTestInfo(testModel);
   }
 
@@ -44,7 +46,7 @@ export class TestService implements TestUseCase {
       testId,
       destination,
     );
-    await this.testResultStore.create(testResult);
-    return new SubmitTestInfo(testResult);
+    const resultId = await this.testResultStore.create(testResult);
+    return new SubmitTestInfo(testResult, resultId);
   }
 }

@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -32,8 +33,7 @@ export class TestResultEntity {
   @Column()
   JPResult: number;
 
-  @OneToOne(() => DestinationEntity)
-  @JoinColumn()
+  @ManyToOne(() => DestinationEntity)
   destination: DestinationEntity;
 
   @CreateDateColumn()

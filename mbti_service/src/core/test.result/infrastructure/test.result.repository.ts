@@ -15,7 +15,7 @@ export class TestResultRepository implements ITestResultRepository {
 
   async create(testResult: TestResultModel) {
     const mbti = testResult.getProperteis().destination.mbti.key;
-
+    const { createdAt, ...resultProperties } = testResult.getProperteis();
     const destinationEntity = await this.dataSource
       .createQueryBuilder(DestinationEntity, 'destination')
       .where('destination.mbti = :mbti', {
@@ -23,15 +23,16 @@ export class TestResultRepository implements ITestResultRepository {
       })
       .getOne();
 
-    await this.dataSource
+    const insertResult = await this.dataSource
       .createQueryBuilder()
       .insert()
       .into(TestResultEntity)
       .values({
-        ...testResult,
+        ...resultProperties,
         destination: destinationEntity,
       })
       .execute();
+    return insertResult.generatedMaps[0].id;
   }
 
   async getByUserId(userId: number) {
