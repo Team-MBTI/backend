@@ -26,8 +26,6 @@ export class TestService {
   async getTestQuestions(testId: number) {
     const questions = await this.getQuestionsByTestId(testId);
     const testInfo = await this.getTestInfo(testId);
-    const questions = await this.getQuestionsByTestId(testId);
-    const testInfo = await this.getTestInfo(testId);
     const res = new TestResponseDto(testInfo, questions);
 
     return res;

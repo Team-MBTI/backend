@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { Mbti } from './mbti.entity';
 
+@Entity()
 export class TestResult extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
