@@ -11,7 +11,7 @@ export class TestModel {
     this.id = inputData.id;
     this.name = inputData.name;
     this.imgUrl = inputData.imgUrl;
-    this.questions = inputData.questions.map(
+    this.questions = inputData.questions?.map(
       (questionSet) => new Question({ ...questionSet }),
     );
   }
