@@ -32,7 +32,6 @@ export class TestResultEntity {
   @Column()
   JPResult: number;
 
-  @OneToOne(() => DestinationEntity)
   @JoinColumn()
   destination: DestinationEntity;
 
