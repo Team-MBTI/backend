@@ -44,7 +44,7 @@ export class TestService implements TestUseCase {
       testId,
       destination,
     );
-    await this.testResultStore.create(testResult);
-    return new SubmitTestInfo(testResult);
+    const resultId = await this.testResultStore.create(testResult);
+    return new SubmitTestInfo(resultId, testResult);
   }
 }

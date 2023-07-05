@@ -4,7 +4,7 @@ import { MBTI } from '../domain/vo/mbti.vo';
 
 export interface ITestResultRepository {
   getByUserId(userId: number): Promise<TestResultModel>;
-  create(testResult: TestResultModel): Promise<void>;
+  create(testResult: TestResultModel): Promise<number>;
   getDestinationByMbti(mbti: MBTI): Promise<Destination>;
   getById(resultId: number): Promise<TestResultModel>;
   updateUserId(testId: number, userId: number): Promise<void>;

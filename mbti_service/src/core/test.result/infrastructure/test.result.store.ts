@@ -11,7 +11,7 @@ export class TestResultStore implements ITestResultStore {
   ) {}
 
   async create(testResult: TestResultModel) {
-    await this.testResultRepository.create(testResult);
+    return await this.testResultRepository.create(testResult);
   }
 
   async updateUserId(testId: number, userId: number): Promise<void> {

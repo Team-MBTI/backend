@@ -23,7 +23,7 @@ export class TestResultRepository implements ITestResultRepository {
       })
       .getOne();
 
-    await this.dataSource
+    let insertResult = await this.dataSource
       .createQueryBuilder()
       .insert()
       .into(TestResultEntity)
@@ -32,6 +32,8 @@ export class TestResultRepository implements ITestResultRepository {
         destination: destinationEntity,
       })
       .execute();
+
+    return insertResult.generatedMaps[0].id;
   }
 
   async getByUserId(userId: number) {
