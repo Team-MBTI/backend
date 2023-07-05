@@ -41,7 +41,7 @@ export class SubmitTestResponse {
   constructor(info: SubmitTestInfo) {
     this.resultId = info.resultId;
     this.destinationName = info.destinationName;
-    this.destinationImgUrl = info.destinationContentImgUrl;
+    this.destinationImgUrl = info.destinationImgUrl;
     this.destinationContent = info.destinationContent;
     this.destinationContentImgUrl = info.destinationContentImgUrl;
     this.mbti = info.mbti;
